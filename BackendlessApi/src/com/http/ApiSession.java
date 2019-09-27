@@ -55,8 +55,6 @@ public class ApiSession {
 		String query1 = "grant_type=refresh_token&refresh_token=" + URLEncoder.encode(initialRefreshToken)
 				+ "&access_type=offline&code=&client_id=" + URLEncoder.encode(clientId)
 				+ "&redirect_uri=https%3A%2F%2F127.0.0.1";
-		// String queryParams =
-		// "grant_type=refresh_token&refresh_token="+initialRefreshToken+"&access_type=offline&code=&client_id="+clientId+"&redirect_uri=https://127.0.0.1";
 		Request request = new Request.Builder().url(url)
 				.post(RequestBody.create(query1, MediaType.get("application/x-www-form-urlencoded"))).build();
 		this.printJson(request);
@@ -178,9 +176,7 @@ public class ApiSession {
 
 	public void saveProps(Properties newProps) {
 		try (OutputStream output = new FileOutputStream("C:/temp/tda-api.properties")) {
-
 			newProps.store(output, null);
-
 			System.out.println(newProps);
 
 		} catch (IOException io) {
