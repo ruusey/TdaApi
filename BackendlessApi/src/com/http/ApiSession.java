@@ -36,60 +36,75 @@ public class ApiSession {
 	private String BASE_URL;
 	private Gson gson;
 	public static final MediaType JSON = MediaType.get("application/json");
+
 	public ApiSession(String baseUrl) {
 		client = new OkHttpClient();
 		this.BASE_URL = baseUrl;
 		gson = new Gson();
 	}
-	public ApiSession(String baseUrl,String appId,String apiKey) {
+
+	public ApiSession(String baseUrl, String appId, String apiKey) {
 		String auth = appId + "/" + apiKey;
 		client = new OkHttpClient();
-		this.BASE_URL = baseUrl+auth;
+		this.BASE_URL = baseUrl + auth;
 		gson = new Gson();
 	}
-	public Token refreshTdaApiTokens(String initialRefreshToken, String clientId) throws IOException{
-		String url = this.BASE_URL+"oauth2/token";
-		String query1 = "grant_type=refresh_token&refresh_token="+URLEncoder.encode(initialRefreshToken)+"&access_type=offline&code=&client_id="+URLEncoder.encode(clientId)+"&redirect_uri=https%3A%2F%2F127.0.0.1";
-		//String queryParams = "grant_type=refresh_token&refresh_token="+initialRefreshToken+"&access_type=offline&code=&client_id="+clientId+"&redirect_uri=https://127.0.0.1";
-		Request request = new Request.Builder().url(url).post(RequestBody.create(query1, MediaType.get("application/x-www-form-urlencoded"))).build();
+
+	public Token refreshTdaApiTokens(String initialRefreshToken, String clientId) throws IOException {
+		String url = this.BASE_URL + "oauth2/token";
+		String query1 = "grant_type=refresh_token&refresh_token=" + URLEncoder.encode(initialRefreshToken)
+				+ "&access_type=offline&code=&client_id=" + URLEncoder.encode(clientId)
+				+ "&redirect_uri=https%3A%2F%2F127.0.0.1";
+		// String queryParams =
+		// "grant_type=refresh_token&refresh_token="+initialRefreshToken+"&access_type=offline&code=&client_id="+clientId+"&redirect_uri=https://127.0.0.1";
+		Request request = new Request.Builder().url(url)
+				.post(RequestBody.create(query1, MediaType.get("application/x-www-form-urlencoded"))).build();
 		this.printJson(request);
 		try (Response response = this.client.newCall(request).execute()) {
 			System.out.println(response.headers());
-			return parseResponse(response.body().string(),Token.class);
+			return parseResponse(response.body().string(), Token.class);
 		}
 	}
+
 	public String executeGetWithBearer(String endpoint, String bearer) throws IOException {
-		Request request = new Request.Builder().url(this.BASE_URL + endpoint).get().addHeader("Content-Type", "application/json").addHeader("Authorization","Bearer "+ bearer).build();
+		Request request = new Request.Builder().url(this.BASE_URL + endpoint).get()
+				.addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + bearer).build();
 
 		try (Response response = this.client.newCall(request).execute()) {
 			return response.body().string();
 		}
 	}
+
 	public String executeGetWithToken(Endpoint endpoint, User user, String path) throws IOException {
-		Request request = new Request.Builder().url(this.BASE_URL + endpoint.path+"/"+path).get().addHeader("Content-Type", "application/json").addHeader("user-token", user.getUserToken()).build();
+		Request request = new Request.Builder().url(this.BASE_URL + endpoint.path + "/" + path).get()
+				.addHeader("Content-Type", "application/json").addHeader("user-token", user.getUserToken()).build();
 
 		try (Response response = this.client.newCall(request).execute()) {
 			return response.body().string();
 		}
 	}
+
 	public String executeGetWithToken(Endpoint endpoint, User user) throws IOException {
-		Request request = new Request.Builder().url(this.BASE_URL + endpoint.path).get().addHeader("Content-Type", "application/json").addHeader("user-token", user.getUserToken()).build();
+		Request request = new Request.Builder().url(this.BASE_URL + endpoint.path).get()
+				.addHeader("Content-Type", "application/json").addHeader("user-token", user.getUserToken()).build();
 
 		try (Response response = this.client.newCall(request).execute()) {
 			return response.body().string();
 		}
 	}
-	
+
 	public String executePostWithToken(Endpoint endpoint, Serializable json, User user) throws IOException {
 		System.out.println(gson.toJson(json));
 		RequestBody body = RequestBody.create(gson.toJson(json), JSON);
 		System.out.println(gson.toJson(body.contentType()));
-		Request request = new Request.Builder().url(this.BASE_URL + endpoint.path).post(body).addHeader("user-token", user.getUserToken()).build();
+		Request request = new Request.Builder().url(this.BASE_URL + endpoint.path).post(body)
+				.addHeader("user-token", user.getUserToken()).build();
 
 		try (Response response = this.client.newCall(request).execute()) {
 			return response.body().string();
 		}
 	}
+
 	public String executePost(Endpoint endpoint, Serializable json) throws IOException {
 		System.out.println(gson.toJson(json));
 		RequestBody body = RequestBody.create(gson.toJson(json), JSON);
@@ -132,7 +147,7 @@ public class ApiSession {
 		System.out.println(gson.toJson(o));
 	}
 
-	public <T> T parseResponse(String response, Class<T> clazz){
+	public <T> T parseResponse(String response, Class<T> clazz) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readValue(response, clazz);
@@ -145,10 +160,12 @@ public class ApiSession {
 		}
 		return null;
 	}
-	public <T> List<T> parseResponseList(String response, Class<T> clazz){
+
+	public <T> List<T> parseResponseList(String response, Class<T> clazz) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			return mapper.readValue(response, new TypeReference<List<T>>(){});
+			return mapper.readValue(response, new TypeReference<List<T>>() {
+			});
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
@@ -158,19 +175,19 @@ public class ApiSession {
 		}
 		return null;
 	}
+
 	public void saveProps(Properties newProps) {
 		try (OutputStream output = new FileOutputStream("C:/temp/tda-api.properties")) {
 
-           
-            // save properties to project root folder
 			newProps.store(output, null);
 
-            System.out.println(newProps);
+			System.out.println(newProps);
 
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
+		} catch (IOException io) {
+			io.printStackTrace();
+		}
 	}
+
 	public static void main(String[] args) throws IOException {
 //		Pair<String,String> apiCreds = Util.loadApiCredentials("C:/temp/backendless.properties");
 //		
@@ -184,26 +201,29 @@ public class ApiSession {
 //		List<Location> locs = util.parseResponseList(util.executeGetWithToken(Endpoint.GEOCATEGORIES, session),Location.class);
 //		util.printJson(locs);
 		try (InputStream input = new FileInputStream("C:/temp/tda-api.properties")) {
+			Properties prop = new Properties();
 
-            Properties prop = new Properties();
+			prop.load(input);
 
-            // load a properties file
-            prop.load(input);
-            String clientId = prop.getProperty("tda.client_id");
-            String baseUrl = prop.getProperty("tda.http.path");
-            String refreshToken = prop.getProperty("tda.token.refresh");
-            
-            ApiSession tda = new ApiSession(baseUrl);
-            Token token = tda.refreshTdaApiTokens(refreshToken,clientId);
-            tda.printJson(token);
-            prop.setProperty("tda.token.refresh", token.getRefreshToken());
-            prop.setProperty("tda.token.access",token.getAccessToken());
-            tda.saveProps(prop);
-            String bearer = prop.getProperty("tda.token.access");
-            String response = tda.executeGetWithBearer("marketdata/ice/quotes", bearer);
-            System.out.println(response);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+			String clientId = prop.getProperty("tda.client_id");
+			String baseUrl = prop.getProperty("tda.http.path");
+			String refreshToken = prop.getProperty("tda.token.refresh");
+
+			ApiSession tda = new ApiSession(baseUrl);
+
+			Token token = tda.refreshTdaApiTokens(refreshToken, clientId);
+			tda.printJson(token);
+
+			prop.setProperty("tda.token.refresh", token.getRefreshToken());
+			prop.setProperty("tda.token.access", token.getAccessToken());
+
+			tda.saveProps(prop);
+			String bearer = prop.getProperty("tda.token.access");
+			String response = tda.executeGetWithBearer("marketdata/ice/quotes", bearer);
+			
+			System.out.println(response);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 }
