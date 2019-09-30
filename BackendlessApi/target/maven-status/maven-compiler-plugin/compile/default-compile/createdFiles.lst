@@ -1,13 +1,16 @@
 com\methods\Subquery.class
 com\models\InitialBalances.class
+com\models\Mover.class
 com\models\PriceHistory.class
 com\models\Order.class
+com\models\OrderStatus.class
 com\models\Token.class
 com\models\OrderLegCollection.class
 com\models\PeriodType.class
 com\models\SecuritiesAccount.class
 com\methods\Endpoint.class
 com\models\OrderStrategy.class
+com\models\TransactionItem.class
 com\models\CancelTime.class
 com\http\ApiSession$2.class
 com\models\Candle.class
@@ -21,9 +24,11 @@ com\models\Period.class
 com\models\Position.class
 com\models\ReplacingOrderCollection.class
 com\models\FrequencyType.class
+com\models\Index.class
 com\models\CashAccount.class
 com\models\Quote.class
 com\models\ChildOrderStrategy.class
+com\models\Instrument.class
 com\models\Email.class
 com\models\Subscription.class
 com\models\User.class
@@ -31,6 +36,7 @@ com\methods\Operation.class
 com\models\Bodyparts.class
 com\http\ApiSession$1.class
 com\tda\methods\Tda.class
+com\models\Transaction.class
 com\util\Util.class
 com\models\Account.class
 com\models\Location.class

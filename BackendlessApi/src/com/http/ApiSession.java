@@ -209,11 +209,12 @@ public class ApiSession {
 //		//User session = util.parseResponse(response, User.class);
 //		List<Location> locs = util.parseResponseList(util.executeGetWithToken(Endpoint.GEOCATEGORIES, session),Location.class);
 //		util.printJson(locs);
-			String path = args[0];
-			if(path == null) {
+			
+			if(args==null || args[0] == null) {
 				System.out.println("missing argument <path-tp-td-api.properties>");
 				System.exit(0);
 			}
+			String path = args[0];
 			ApiSession tda = Tda.initializeTdaApi(path);
 			System.out.println(tda.bearerToken);
 			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");

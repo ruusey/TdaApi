@@ -1,6 +1,7 @@
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Period.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Quote.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\SecuritiesAccount.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Mover.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\CurrentBalances.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\AccountList.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Email.java
@@ -9,6 +10,7 @@ C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\PeriodType.j
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\methods\Operation.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\OrderStrategy.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\User.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Transaction.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\util\Util.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\FrequencyType.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Login.java
@@ -18,6 +20,7 @@ C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\ChildOrderSt
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\methods\Endpoint.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\OrderLegCollection.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Order.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\OrderStatus.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Error.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\PriceHistory.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\CancelTime.java
@@ -27,9 +30,12 @@ C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\tda\methods\Tda.jav
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\http\ApiSession.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Location.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Subscription.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Index.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Candle.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\TransactionItem.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Metadata.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\methods\Subquery.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Instrument.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Bodyparts.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\InitialBalances.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\ReplacingOrderCollection.java
