@@ -185,10 +185,10 @@ public class ApiSession {
 		return null;
 	}
 
-	public void saveProps(Properties newProps) {
-		try (OutputStream output = new FileOutputStream("C:/temp/tda-api.properties")) {
+	public void saveProps(Properties newProps,String path) {
+		try (OutputStream output = new FileOutputStream(path)) {
 			newProps.store(output, null);
-			System.out.println(newProps);
+			//System.out.println(newProps);
 
 		} catch (IOException io) {
 			io.printStackTrace();
@@ -207,6 +207,11 @@ public class ApiSession {
 //		//User session = util.parseResponse(response, User.class);
 //		List<Location> locs = util.parseResponseList(util.executeGetWithToken(Endpoint.GEOCATEGORIES, session),Location.class);
 //		util.printJson(locs);
+			String path = args[0];
+			if(path == null) {
+				System.out.println("missing argument <path-tp-td-api.properties>");
+				System.exit(0);
+			}
 			ApiSession tda = Tda.initializeTdaApi("C:/temp/tda-api.properties");
 			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");
 			tda.printJson(quote);

@@ -45,7 +45,7 @@ public class Tda {
 			prop.setProperty("tda.token.refresh", token.getRefreshToken());
 			prop.setProperty("tda.token.access", token.getAccessToken());
 			
-			tda.saveProps(prop);
+			tda.saveProps(prop,propertiesPath);
 			tda.bearerToken = prop.getProperty("tda.token.access");
 			return tda;
 		} catch (IOException ex) {
