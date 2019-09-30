@@ -13,6 +13,8 @@ import com.models.Account;
 import com.models.AccountList;
 import com.models.CashAccount;
 import com.models.FrequencyType;
+import com.models.Index;
+import com.models.Mover;
 import com.models.Order;
 import com.models.Period;
 import com.models.PeriodType;
@@ -30,21 +32,15 @@ public class Tda {
 	public static ApiSession initializeTdaApi(String propertiesPath) {
 		try (InputStream input = new FileInputStream(propertiesPath)) {
 			Properties prop = new Properties();
-
 			prop.load(input);
-
 			String clientId = prop.getProperty("tda.client_id");
 			String baseUrl = prop.getProperty("tda.http.path");
 			String refreshToken = prop.getProperty("tda.token.refresh");
-
 			ApiSession tda = new ApiSession(baseUrl);
-
 			Token token = Tda.postTdaApiTokens(tda,refreshToken, clientId);
 			tda.printJson(token);
-
 			prop.setProperty("tda.token.refresh", token.getRefreshToken());
 			prop.setProperty("tda.token.access", token.getAccessToken());
-			
 			tda.saveProps(prop,propertiesPath);
 			tda.bearerToken = prop.getProperty("tda.token.access");
 			return tda;
@@ -64,6 +60,22 @@ public class Tda {
 		try (Response response = session.client.newCall(request).execute()) {
 			//System.out.println(response.headers());
 			return session.parseResponse(response.body().string(), Token.class);
+		}
+	}
+	public static List<Mover> getTdaMovers(ApiSession session, Index index) throws IOException {
+		String url = session.BASE_URL + "marketdata/"+index.name+"/movers";
+		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + session.bearerToken)
+				.get().build();
+		try (Response response = session.client.newCall(request).execute()) {
+			return  session.parseResponseList(response.body().string(), Mover.class);
+		}
+	}
+	public static List<Order> getTdaOrders(ApiSession session) throws IOException {
+		String url = session.BASE_URL + "orders/";
+		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + session.bearerToken)
+				.get().build();
+		try (Response response = session.client.newCall(request).execute()) {
+			return  session.parseResponseList(response.body().string(), Order.class);
 		}
 	}
 	public static Quote getTdaSymbolQuote(ApiSession session, String symbol) throws IOException {

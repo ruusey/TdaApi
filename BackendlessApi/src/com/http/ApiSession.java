@@ -25,8 +25,10 @@ import com.models.Account;
 import com.models.AccountList;
 import com.models.CashAccount;
 import com.models.FrequencyType;
+import com.models.Index;
 import com.models.Location;
 import com.models.Login;
+import com.models.Mover;
 import com.models.Order;
 import com.models.Period;
 import com.models.PeriodType;
@@ -213,13 +215,15 @@ public class ApiSession {
 				System.exit(0);
 			}
 			ApiSession tda = Tda.initializeTdaApi(path);
+			System.out.println(tda.bearerToken);
 			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");
 			tda.printJson(quote);
-			PriceHistory history = Tda.getTdaSymbolHistory(tda, "AAPL",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
+			PriceHistory history = Tda.getTdaSymbolHistory(tda, "ICE",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
 			SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950");
+			List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX);
 			//List<Order> accountOrders = Tda.getTdaOdersByAccount(tda, bearer, "496140950");
 			tda.printJson(account);
-			tda.printJson(history);
+			tda.printJson(movers);
 		
 	}
 }
