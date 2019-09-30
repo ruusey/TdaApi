@@ -19,10 +19,15 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.methods.Endpoint;
+import com.models.FrequencyType;
 import com.models.Location;
 import com.models.Login;
+import com.models.Period;
+import com.models.PeriodType;
+import com.models.PriceHistory;
 import com.models.Token;
 import com.models.User;
+import com.tda.methods.Tda;
 import com.util.Util;
 
 import okhttp3.MediaType;
@@ -32,8 +37,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ApiSession {
-	private OkHttpClient client;
-	private String BASE_URL;
+	public OkHttpClient client;
+	public String BASE_URL;
 	private Gson gson;
 	public static final MediaType JSON = MediaType.get("application/json");
 
@@ -48,20 +53,6 @@ public class ApiSession {
 		client = new OkHttpClient();
 		this.BASE_URL = baseUrl + auth;
 		gson = new Gson();
-	}
-
-	public Token refreshTdaApiTokens(String initialRefreshToken, String clientId) throws IOException {
-		String url = this.BASE_URL + "oauth2/token";
-		String query1 = "grant_type=refresh_token&refresh_token=" + URLEncoder.encode(initialRefreshToken)
-				+ "&access_type=offline&code=&client_id=" + URLEncoder.encode(clientId)
-				+ "&redirect_uri=https%3A%2F%2F127.0.0.1";
-		Request request = new Request.Builder().url(url)
-				.post(RequestBody.create(query1, MediaType.get("application/x-www-form-urlencoded"))).build();
-		this.printJson(request);
-		try (Response response = this.client.newCall(request).execute()) {
-			System.out.println(response.headers());
-			return parseResponse(response.body().string(), Token.class);
-		}
 	}
 
 	public String executeGetWithBearer(String endpoint, String bearer) throws IOException {
@@ -207,17 +198,18 @@ public class ApiSession {
 
 			ApiSession tda = new ApiSession(baseUrl);
 
-			Token token = tda.refreshTdaApiTokens(refreshToken, clientId);
+			Token token = Tda.postTdaApiTokens(tda,refreshToken, clientId);
 			tda.printJson(token);
 
 			prop.setProperty("tda.token.refresh", token.getRefreshToken());
 			prop.setProperty("tda.token.access", token.getAccessToken());
-
+			
 			tda.saveProps(prop);
 			String bearer = prop.getProperty("tda.token.access");
 			String response = tda.executeGetWithBearer("marketdata/ice/quotes", bearer);
-			
-			System.out.println(response);
+			System.out.println(bearer);
+			PriceHistory history = Tda.getTdaSymbolHistory(tda, "ice", bearer,PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
+			tda.printJson(history);
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
