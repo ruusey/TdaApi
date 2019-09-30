@@ -211,7 +211,7 @@ public class ApiSession {
 //		util.printJson(locs);
 			
 			if(args==null || args[0] == null) {
-				System.out.println("missing argument <path-tp-td-api.properties>");
+				System.out.println("missing argument <path-tp-to-api.properties>");
 				System.exit(0);
 			}
 			String path = args[0];
