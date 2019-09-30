@@ -19,12 +19,15 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.methods.Endpoint;
+import com.models.AccountList;
+import com.models.CashAccount;
 import com.models.FrequencyType;
 import com.models.Location;
 import com.models.Login;
 import com.models.Period;
 import com.models.PeriodType;
 import com.models.PriceHistory;
+import com.models.SecuritiesAccount;
 import com.models.Token;
 import com.models.User;
 import com.tda.methods.Tda;
@@ -208,7 +211,9 @@ public class ApiSession {
 			String bearer = prop.getProperty("tda.token.access");
 			String response = tda.executeGetWithBearer("marketdata/ice/quotes", bearer);
 			System.out.println(bearer);
-			PriceHistory history = Tda.getTdaSymbolHistory(tda, "ice", bearer,PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
+			PriceHistory history = Tda.getTdaSymbolHistory(tda, "AAPL", bearer,PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
+			List<AccountList> account = Tda.getTdaCashAccount(tda, bearer);
+			tda.printJson(account);
 			tda.printJson(history);
 		} catch (IOException ex) {
 			ex.printStackTrace();

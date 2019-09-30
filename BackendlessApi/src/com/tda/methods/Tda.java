@@ -2,12 +2,16 @@ package com.tda.methods;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
 
 import com.http.ApiSession;
+import com.models.AccountList;
+import com.models.CashAccount;
 import com.models.FrequencyType;
 import com.models.Period;
 import com.models.PeriodType;
 import com.models.PriceHistory;
+import com.models.SecuritiesAccount;
 import com.models.Token;
 
 import okhttp3.MediaType;
@@ -45,6 +49,15 @@ public class Tda {
 		try (Response response = session.client.newCall(request).execute()) {
 			//System.out.println(response.headers());
 			return session.parseResponse(response.body().string(), PriceHistory.class);
+		}
+	}
+	public static List<AccountList> getTdaCashAccount(ApiSession session,String bearer) throws IOException {
+		String url = session.BASE_URL + "accounts";
+		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + bearer)
+				.get().build();
+		try (Response response = session.client.newCall(request).execute()) {
+			//System.out.println(response.headers());
+			return session.parseResponseList(response.body().string(), AccountList.class);
 		}
 	}
 }

@@ -16,7 +16,7 @@ public class Candle {
 	@JsonProperty("close")
 	private int close;
 	@JsonProperty("datetime")
-	private int datetime;
+	private Long datetime;
 	@JsonProperty("high")
 	private int high;
 	@JsonProperty("low")
@@ -44,7 +44,7 @@ public class Candle {
 	 * @param datetime
 	 * @param close
 	 */
-	public Candle(int close, int datetime, int high, int low, int open, int volume) {
+	public Candle(int close, Long datetime, int high, int low, int open, int volume) {
 		super();
 		this.close = close;
 		this.datetime = datetime;
@@ -65,12 +65,12 @@ public class Candle {
 	}
 
 	@JsonProperty("datetime")
-	public int getDatetime() {
+	public Long getDatetime() {
 		return datetime;
 	}
 
 	@JsonProperty("datetime")
-	public void setDatetime(int datetime) {
+	public void setDatetime(Long datetime) {
 		this.datetime = datetime;
 	}
 
