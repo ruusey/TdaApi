@@ -58,9 +58,9 @@ public class Quote {
 	@JsonProperty("totalVolume")
 	private int totalVolume;
 	@JsonProperty("quoteTimeInLong")
-	private int quoteTimeInLong;
+	private Long quoteTimeInLong;
 	@JsonProperty("tradeTimeInLong")
-	private int tradeTimeInLong;
+	private Long tradeTimeInLong;
 	@JsonProperty("mark")
 	private double mark;
 	@JsonProperty("exchange")
@@ -98,7 +98,7 @@ public class Quote {
 	@JsonProperty("regularMarketNetChange")
 	private double regularMarketNetChange;
 	@JsonProperty("regularMarketTradeTimeInLong")
-	private int regularMarketTradeTimeInLong;
+	private Long regularMarketTradeTimeInLong;
 	@JsonProperty("netPercentChangeInDouble")
 	private double netPercentChangeInDouble;
 	@JsonProperty("markChangeInDouble")
@@ -170,11 +170,11 @@ public class Quote {
 	public Quote(String assetType, String symbol, String description, double bidPrice, int bidSize, String bidId,
 			double askPrice, int askSize, String askId, double lastPrice, int lastSize, String lastId, double openPrice,
 			double highPrice, double lowPrice, String bidTick, double closePrice, double netChange, int totalVolume,
-			int quoteTimeInLong, int tradeTimeInLong, double mark, String exchange, String exchangeName,
+			Long quoteTimeInLong, Long tradeTimeInLong, double mark, String exchange, String exchangeName,
 			boolean marginable, boolean shortable, double volatility, int digits, double _52WkHigh, double _52WkLow,
 			int nAV, double peRatio, double divAmount, double divYield, String divDate, String securityStatus,
 			double regularMarketLastPrice, int regularMarketLastSize, double regularMarketNetChange,
-			int regularMarketTradeTimeInLong, double netPercentChangeInDouble, double markChangeInDouble,
+			Long regularMarketTradeTimeInLong, double netPercentChangeInDouble, double markChangeInDouble,
 			double markPercentChangeInDouble, double regularMarketPercentChangeInDouble, boolean delayed) {
 		super();
 		this.assetType = assetType;
@@ -415,22 +415,22 @@ public class Quote {
 	}
 
 	@JsonProperty("quoteTimeInLong")
-	public int getQuoteTimeInLong() {
+	public Long getQuoteTimeInLong() {
 		return quoteTimeInLong;
 	}
 
 	@JsonProperty("quoteTimeInLong")
-	public void setQuoteTimeInLong(int quoteTimeInLong) {
+	public void setQuoteTimeInLong(Long quoteTimeInLong) {
 		this.quoteTimeInLong = quoteTimeInLong;
 	}
 
 	@JsonProperty("tradeTimeInLong")
-	public int getTradeTimeInLong() {
+	public Long getTradeTimeInLong() {
 		return tradeTimeInLong;
 	}
 
 	@JsonProperty("tradeTimeInLong")
-	public void setTradeTimeInLong(int tradeTimeInLong) {
+	public void setTradeTimeInLong(Long tradeTimeInLong) {
 		this.tradeTimeInLong = tradeTimeInLong;
 	}
 
@@ -615,12 +615,12 @@ public class Quote {
 	}
 
 	@JsonProperty("regularMarketTradeTimeInLong")
-	public int getRegularMarketTradeTimeInLong() {
+	public Long getRegularMarketTradeTimeInLong() {
 		return regularMarketTradeTimeInLong;
 	}
 
 	@JsonProperty("regularMarketTradeTimeInLong")
-	public void setRegularMarketTradeTimeInLong(int regularMarketTradeTimeInLong) {
+	public void setRegularMarketTradeTimeInLong(Long regularMarketTradeTimeInLong) {
 		this.regularMarketTradeTimeInLong = regularMarketTradeTimeInLong;
 	}
 

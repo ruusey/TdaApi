@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.http.ApiSession;
 import com.models.Account;
 import com.models.AccountList;
@@ -41,8 +42,8 @@ public class Tda {
 		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + bearer)
 				.get().build();
 		try (Response response = session.client.newCall(request).execute()) {
-			//System.out.println(response.headers());
-			return session.parseResponse(response.body().string(), Quote.class);
+			String inner = session.gson.toJson(session.parseResponse(response.body().string(), Quote.class).getAdditionalProperties().get(symbol));
+			return  session.parseResponse(inner, Quote.class);
 		}
 	}
 	public static PriceHistory getTdaSymbolHistory(ApiSession session, String symbol, String bearer, PeriodType periodType, Period period, FrequencyType frequencyType,Period frequency, Long endDate, Long startDate, boolean needExtendedHours) throws IOException {

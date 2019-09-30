@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.function.Function;
 
@@ -46,7 +47,7 @@ import okhttp3.Response;
 public class ApiSession {
 	public OkHttpClient client;
 	public String BASE_URL;
-	private Gson gson;
+	public Gson gson;
 	public static final MediaType JSON = MediaType.get("application/json");
 
 	public ApiSession(String baseUrl) {
@@ -142,7 +143,19 @@ public class ApiSession {
 	public void printJson(Object o) {
 		System.out.println(gson.toJson(o));
 	}
-
+	public <T> TypeReference<Map<String,T>> parseDynamic(String response, Class<T> clazz) {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(response, new TypeReference<Map<String,T>>(){});
+		} catch (JsonParseException e) {
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public <T> T parseResponse(String response, Class<T> clazz) {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -187,7 +200,7 @@ public class ApiSession {
 //		
 //		ApiSession util = new ApiSession("https://api.backendless.com/",apiCreds.getKey(),apiCreds.getValue());
 //		
-//		Login login = new Login("robert.usey@soltech.net", "Ruboy123#back");
+
 //		//String response = util.executePost(Endpoint.LOGIN, login);
 //		Function<String, User> doLogin = response->util.parseResponse(response, User.class);
 //		User session= doLogin.apply(util.executePost(Endpoint.LOGIN, login));
@@ -214,7 +227,7 @@ public class ApiSession {
 			tda.saveProps(prop);
 			String bearer = prop.getProperty("tda.token.access");
 			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE", bearer);
-			tda.printJson(quote.getAdditionalProperties().get("ICE"));
+			tda.printJson(quote);
 			PriceHistory history = Tda.getTdaSymbolHistory(tda, "AAPL", bearer,PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
 			SecuritiesAccount account = Tda.getTdaCashAccount(tda, bearer,"496140950");
 			//List<Order> accountOrders = Tda.getTdaOdersByAccount(tda, bearer, "496140950");
