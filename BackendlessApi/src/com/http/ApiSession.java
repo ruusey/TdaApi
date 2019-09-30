@@ -219,15 +219,20 @@ public class ApiSession {
 			String path = args[0];
 			ApiSession tda = Tda.initializeTdaApi(path);
 			System.out.println(tda.bearerToken);
-			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");
-			tda.printJson(quote);
-			PriceHistory history = Tda.getTdaSymbolHistory(tda, "ICE",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
+			//Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");
+			//tda.printJson(quote);
+			long start = System.currentTimeMillis();
+			//PriceHistory history = Tda.getTdaSymbolHistory(tda, "ICE",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.ONE,true);
+			//tda.printJson(history);
+			
 			//SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950");
 			//List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX);
 			//List<Order> accountOrders = Tda.getTdaOdersByAccount(tda, bearer, "496140950");
-			SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "ICE");
+			
+			SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T");
+			//System.out.println("Fetched "+history.getCandles().size()+" records in "+(System.currentTimeMillis()-start)+"ms");
+			
 			tda.printJson(symbol);
-			//tda.printJson(movers);
 		
 	}
 }

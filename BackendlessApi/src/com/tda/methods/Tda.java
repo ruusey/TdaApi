@@ -7,6 +7,10 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Properties;
 
+
+import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 import com.google.gson.Gson;
 import com.http.ApiSession;
 import com.models.Account;
@@ -32,6 +36,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Tda {
+	//private static Logger LOGGER = new LogManager.
 	public static ApiSession initializeTdaApi(String propertiesPath) {
 		try (InputStream input = new FileInputStream(propertiesPath)) {
 			Properties prop = new Properties();
