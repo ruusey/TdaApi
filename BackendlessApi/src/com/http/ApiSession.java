@@ -49,7 +49,7 @@ public class ApiSession {
 	public String BASE_URL;
 	public Gson gson;
 	public static final MediaType JSON = MediaType.get("application/json");
-
+	public String bearerToken;
 	public ApiSession(String baseUrl) {
 		client = new OkHttpClient();
 		this.BASE_URL = baseUrl;
@@ -63,9 +63,9 @@ public class ApiSession {
 		gson = new GsonBuilder().setPrettyPrinting().create();
 	}
 
-	public String executeGetWithBearer(String endpoint, String bearer) throws IOException {
+	public String executeGetWithBearer(String endpoint) throws IOException {
 		Request request = new Request.Builder().url(this.BASE_URL + endpoint).get()
-				.addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + bearer).build();
+				.addHeader("Content-Type", "application/json").addHeader("Authorization", "Bearer " + this.bearerToken).build();
 
 		try (Response response = this.client.newCall(request).execute()) {
 			return response.body().string();
@@ -207,34 +207,14 @@ public class ApiSession {
 //		//User session = util.parseResponse(response, User.class);
 //		List<Location> locs = util.parseResponseList(util.executeGetWithToken(Endpoint.GEOCATEGORIES, session),Location.class);
 //		util.printJson(locs);
-		try (InputStream input = new FileInputStream("C:/temp/tda-api.properties")) {
-			Properties prop = new Properties();
-
-			prop.load(input);
-
-			String clientId = prop.getProperty("tda.client_id");
-			String baseUrl = prop.getProperty("tda.http.path");
-			String refreshToken = prop.getProperty("tda.token.refresh");
-
-			ApiSession tda = new ApiSession(baseUrl);
-
-			Token token = Tda.postTdaApiTokens(tda,refreshToken, clientId);
-			tda.printJson(token);
-
-			prop.setProperty("tda.token.refresh", token.getRefreshToken());
-			prop.setProperty("tda.token.access", token.getAccessToken());
-			
-			tda.saveProps(prop);
-			String bearer = prop.getProperty("tda.token.access");
-			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE", bearer);
+			ApiSession tda = Tda.initializeTdaApi("C:/temp/tda-api.properties");
+			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");
 			tda.printJson(quote);
-			PriceHistory history = Tda.getTdaSymbolHistory(tda, "AAPL", bearer,PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
-			SecuritiesAccount account = Tda.getTdaCashAccount(tda, bearer,"496140950");
+			PriceHistory history = Tda.getTdaSymbolHistory(tda, "AAPL",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
+			SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950");
 			//List<Order> accountOrders = Tda.getTdaOdersByAccount(tda, bearer, "496140950");
 			tda.printJson(account);
 			tda.printJson(history);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+		
 	}
 }
