@@ -18,15 +18,19 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.methods.Endpoint;
+import com.models.Account;
 import com.models.AccountList;
 import com.models.CashAccount;
 import com.models.FrequencyType;
 import com.models.Location;
 import com.models.Login;
+import com.models.Order;
 import com.models.Period;
 import com.models.PeriodType;
 import com.models.PriceHistory;
+import com.models.Quote;
 import com.models.SecuritiesAccount;
 import com.models.Token;
 import com.models.User;
@@ -48,14 +52,14 @@ public class ApiSession {
 	public ApiSession(String baseUrl) {
 		client = new OkHttpClient();
 		this.BASE_URL = baseUrl;
-		gson = new Gson();
+		gson = new GsonBuilder().setPrettyPrinting().create();
 	}
 
 	public ApiSession(String baseUrl, String appId, String apiKey) {
 		String auth = appId + "/" + apiKey;
 		client = new OkHttpClient();
 		this.BASE_URL = baseUrl + auth;
-		gson = new Gson();
+		gson = new GsonBuilder().setPrettyPrinting().create();
 	}
 
 	public String executeGetWithBearer(String endpoint, String bearer) throws IOException {
@@ -209,10 +213,11 @@ public class ApiSession {
 			
 			tda.saveProps(prop);
 			String bearer = prop.getProperty("tda.token.access");
-			String response = tda.executeGetWithBearer("marketdata/ice/quotes", bearer);
-			System.out.println(bearer);
+			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE", bearer);
+			tda.printJson(quote.getAdditionalProperties().get("ICE"));
 			PriceHistory history = Tda.getTdaSymbolHistory(tda, "AAPL", bearer,PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
-			List<AccountList> account = Tda.getTdaCashAccount(tda, bearer);
+			SecuritiesAccount account = Tda.getTdaCashAccount(tda, bearer,"496140950");
+			//List<Order> accountOrders = Tda.getTdaOdersByAccount(tda, bearer, "496140950");
 			tda.printJson(account);
 			tda.printJson(history);
 		} catch (IOException ex) {

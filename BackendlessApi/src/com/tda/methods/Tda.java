@@ -5,12 +5,15 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import com.http.ApiSession;
+import com.models.Account;
 import com.models.AccountList;
 import com.models.CashAccount;
 import com.models.FrequencyType;
+import com.models.Order;
 import com.models.Period;
 import com.models.PeriodType;
 import com.models.PriceHistory;
+import com.models.Quote;
 import com.models.SecuritiesAccount;
 import com.models.Token;
 
@@ -33,6 +36,15 @@ public class Tda {
 			return session.parseResponse(response.body().string(), Token.class);
 		}
 	}
+	public static Quote getTdaSymbolQuote(ApiSession session, String symbol, String bearer) throws IOException {
+		String url = session.BASE_URL + "marketdata/"+symbol+"/quotes";
+		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + bearer)
+				.get().build();
+		try (Response response = session.client.newCall(request).execute()) {
+			//System.out.println(response.headers());
+			return session.parseResponse(response.body().string(), Quote.class);
+		}
+	}
 	public static PriceHistory getTdaSymbolHistory(ApiSession session, String symbol, String bearer, PeriodType periodType, Period period, FrequencyType frequencyType,Period frequency, Long endDate, Long startDate, boolean needExtendedHours) throws IOException {
 		String url = session.BASE_URL + "marketdata/"+symbol+"/pricehistory?periodType="+periodType.name+"&period="+period.period+"&frequencyType="+frequencyType.name+"&frequency="+frequency.period+"&endDate="+endDate+"&startDate="+startDate+"&needExtendedHoursData="+needExtendedHours;
 		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + bearer)
@@ -51,13 +63,31 @@ public class Tda {
 			return session.parseResponse(response.body().string(), PriceHistory.class);
 		}
 	}
-	public static List<AccountList> getTdaCashAccount(ApiSession session,String bearer) throws IOException {
+	public static List<SecuritiesAccount> getTdaCashAccount(ApiSession session,String bearer) throws IOException {
 		String url = session.BASE_URL + "accounts";
 		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + bearer)
 				.get().build();
 		try (Response response = session.client.newCall(request).execute()) {
 			//System.out.println(response.headers());
-			return session.parseResponseList(response.body().string(), AccountList.class);
+			return session.parseResponseList(response.body().string(), SecuritiesAccount.class);
+		}
+	}
+	public static SecuritiesAccount getTdaCashAccount(ApiSession session,String bearer,String accountId) throws IOException {
+		String url = session.BASE_URL + "accounts/"+accountId;
+		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + bearer)
+				.get().build();
+		try (Response response = session.client.newCall(request).execute()) {
+			//System.out.println(response.headers());
+			return session.parseResponse(response.body().string(), SecuritiesAccount.class);
+		}
+	}
+	public static List<Order> getTdaOdersByAccount(ApiSession session,String bearer,String accountId) throws IOException {
+		String url = session.BASE_URL + "accounts/"+accountId+"/orders";
+		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + bearer)
+				.get().build();
+		try (Response response = session.client.newCall(request).execute()) {
+			//System.out.println(response.headers());
+			return session.parseResponseList(response.body().string(), Order.class);
 		}
 	}
 }
