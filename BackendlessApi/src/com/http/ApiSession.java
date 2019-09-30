@@ -212,7 +212,7 @@ public class ApiSession {
 				System.out.println("missing argument <path-tp-td-api.properties>");
 				System.exit(0);
 			}
-			ApiSession tda = Tda.initializeTdaApi("C:/temp/tda-api.properties");
+			ApiSession tda = Tda.initializeTdaApi(path);
 			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");
 			tda.printJson(quote);
 			PriceHistory history = Tda.getTdaSymbolHistory(tda, "AAPL",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
