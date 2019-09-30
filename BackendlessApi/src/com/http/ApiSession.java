@@ -35,6 +35,8 @@ import com.models.PeriodType;
 import com.models.PriceHistory;
 import com.models.Quote;
 import com.models.SecuritiesAccount;
+import com.models.Symbol;
+import com.models.SymbolFundamental;
 import com.models.Token;
 import com.models.User;
 import com.tda.methods.Tda;
@@ -211,7 +213,7 @@ public class ApiSession {
 //		util.printJson(locs);
 			
 			if(args==null || args[0] == null) {
-				System.out.println("missing argument <path-tp-to-api.properties>");
+				System.out.println("missing argument <path-to-tda-api.properties>");
 				System.exit(0);
 			}
 			String path = args[0];
@@ -220,11 +222,12 @@ public class ApiSession {
 			Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");
 			tda.printJson(quote);
 			PriceHistory history = Tda.getTdaSymbolHistory(tda, "ICE",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.FIVE,true);
-			SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950");
-			List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX);
+			//SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950");
+			//List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX);
 			//List<Order> accountOrders = Tda.getTdaOdersByAccount(tda, bearer, "496140950");
-			tda.printJson(account);
-			tda.printJson(movers);
+			SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "ICE");
+			tda.printJson(symbol);
+			//tda.printJson(movers);
 		
 	}
 }

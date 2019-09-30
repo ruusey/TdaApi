@@ -1,4 +1,5 @@
 com\methods\Subquery.class
+com\models\SymbolFundamental.class
 com\models\InitialBalances.class
 com\models\Mover.class
 com\models\PriceHistory.class
@@ -14,6 +15,7 @@ com\models\TransactionItem.class
 com\models\CancelTime.class
 com\http\ApiSession$2.class
 com\models\Candle.class
+com\models\Symbol.class
 com\models\CurrentBalances.class
 com\http\ApiSession.class
 com\models\Error.class
@@ -23,6 +25,7 @@ com\models\Login.class
 com\models\Period.class
 com\models\Position.class
 com\models\ReplacingOrderCollection.class
+com\models\Fundamental.class
 com\models\FrequencyType.class
 com\models\Index.class
 com\models\CashAccount.class

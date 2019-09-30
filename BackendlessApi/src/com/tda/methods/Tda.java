@@ -21,6 +21,8 @@ import com.models.PeriodType;
 import com.models.PriceHistory;
 import com.models.Quote;
 import com.models.SecuritiesAccount;
+import com.models.Symbol;
+import com.models.SymbolFundamental;
 import com.models.Token;
 import com.models.Transaction;
 
@@ -93,6 +95,26 @@ public class Tda {
 				.get().build();
 		try (Response response = session.client.newCall(request).execute()) {
 			return session.parseResponseList(response.body().string(), Transaction.class);
+		}
+	}
+	public static SymbolFundamental getTdaInstrumentFundamental(ApiSession session, String symbol) throws IOException {
+		String url = session.BASE_URL + "instruments?symbol="+symbol+"&projection=fundamental";
+		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + session.bearerToken)
+				.get().build();
+		try (Response response = session.client.newCall(request).execute()) {
+			String inner = session.gson.toJson(
+					session.parseResponse(response.body().string(), SymbolFundamental.class).getAdditionalProperties().get(symbol));
+			return session.parseResponse(inner, SymbolFundamental.class);
+		}
+	}
+	public static Symbol getTdaInstrumentSearch(ApiSession session, String symbol) throws IOException {
+		String url = session.BASE_URL + "instruments?symbol="+symbol+"&projection=symbol-search";
+		Request request = new Request.Builder().url(url).addHeader("Authorization", "Bearer " + session.bearerToken)
+				.get().build();
+		try (Response response = session.client.newCall(request).execute()) {
+			String inner = session.gson.toJson(
+					session.parseResponse(response.body().string(), Symbol.class).getAdditionalProperties().get(symbol));
+			return session.parseResponse(inner, Symbol.class);
 		}
 	}
 	public static Transaction getTdaTransaction(ApiSession session, String accountId, String transactionId) throws IOException {

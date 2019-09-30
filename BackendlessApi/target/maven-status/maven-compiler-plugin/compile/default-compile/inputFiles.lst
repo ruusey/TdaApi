@@ -16,9 +16,12 @@ C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\FrequencyTyp
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Login.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Account.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Position.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Fundamental.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Symbol.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\ChildOrderStrategy.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\methods\Endpoint.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\OrderLegCollection.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\SymbolFundamental.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Order.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\OrderStatus.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Error.java
