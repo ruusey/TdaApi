@@ -15,6 +15,12 @@ import java.util.function.Function;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.ta4j.core.Strategy;
+import org.ta4j.core.TimeSeries;
+import org.ta4j.core.TimeSeriesManager;
+import org.ta4j.core.TradingRecord;
+import org.ta4j.core.analysis.criteria.TotalProfitCriterion;
+import org.ta4j.core.num.Num;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -45,7 +51,12 @@ import com.models.Symbol;
 import com.models.SymbolFundamental;
 import com.models.Token;
 import com.models.User;
+import com.strategy.CCICorrectionStrategy;
+import com.strategy.GlobalExtremaStrategy;
+import com.strategy.MovingMomentumStrategy;
+import com.strategy.RSI2Strategy;
 import com.tda.methods.Tda;
+import com.util.AnalysisUtil;
 import com.util.Util;
 
 import okhttp3.MediaType;
@@ -239,11 +250,18 @@ public class ApiSession {
 			//tda.printJson(Tda.getMarketHours(tda, Market.INDEX));
 			//SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T");
 			//Option option = Tda.getOptionChain(tda, "T", ContractType.ALL, 2, StrikeRange.ITM);
+			//tda.printJson(Tda.getTdaInstrumentFundamental(tda, "T"));
+			//tda.printJson(Tda.getTdaInstrumentSearch(tda, "T"));
 			
-			tda.printJson(Tda.getTdaInstrumentFundamental(tda, "T"));
-			tda.printJson(Tda.getTdaInstrumentSearch(tda, "T"));
-			tda.printJson(Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.TEN,true));
-			tda.printJson(Tda.getOptionChain(tda, "T", ContractType.ALL, 1, StrikeRange.ITM));
+			PriceHistory history = Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.TEN,FrequencyType.MINUTE,Period.FIVE,true);
+			//tda.printJson(history);
+			
+	        // Run trading strat
+	        RSI2Strategy.run(history);
+
+	        // Running the strategy
+	       
+			//tda.printJson(Tda.getOptionChain(tda, "T", ContractType.ALL, 1, StrikeRange.ITM));
 		
 	}
 }

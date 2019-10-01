@@ -41,6 +41,8 @@ C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\PeriodType.j
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\methods\Operation.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\util\Util.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\FrequencyType.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\strategy\GlobalExtremaStrategy.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\strategy\MovingMomentumStrategy.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Fundamental.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\SymbolFundamental.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Market.java
@@ -49,6 +51,9 @@ C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\CancelTime.j
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\CallExpDateMap.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\http\ApiSession.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Underlying.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\strategy\RSI2Strategy.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\TransactionItem.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\methods\Subquery.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\util\AnalysisUtil.java
 C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\models\Instrument.java
+C:\dev\GitRepositories\BackendlessApi\BackendlessApi\src\com\strategy\CCICorrectionStrategy.java

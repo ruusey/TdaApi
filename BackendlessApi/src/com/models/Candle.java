@@ -14,17 +14,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class Candle {
 
 	@JsonProperty("close")
-	private int close;
+	private double close;
 	@JsonProperty("datetime")
 	private Long datetime;
 	@JsonProperty("high")
-	private int high;
+	private double high;
 	@JsonProperty("low")
-	private int low;
+	private double low;
 	@JsonProperty("open")
-	private int open;
+	private double open;
 	@JsonProperty("volume")
-	private int volume;
+	private double volume;
 	@JsonIgnore
 	private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -44,7 +44,7 @@ public class Candle {
 	 * @param datetime
 	 * @param close
 	 */
-	public Candle(int close, Long datetime, int high, int low, int open, int volume) {
+	public Candle(double close, Long datetime, double high, double low, double open, double volume) {
 		super();
 		this.close = close;
 		this.datetime = datetime;
@@ -55,12 +55,12 @@ public class Candle {
 	}
 
 	@JsonProperty("close")
-	public int getClose() {
+	public double getClose() {
 		return close;
 	}
 
 	@JsonProperty("close")
-	public void setClose(int close) {
+	public void setClose(double close) {
 		this.close = close;
 	}
 
@@ -75,42 +75,42 @@ public class Candle {
 	}
 
 	@JsonProperty("high")
-	public int getHigh() {
+	public double getHigh() {
 		return high;
 	}
 
 	@JsonProperty("high")
-	public void setHigh(int high) {
+	public void setHigh(double high) {
 		this.high = high;
 	}
 
 	@JsonProperty("low")
-	public int getLow() {
+	public double getLow() {
 		return low;
 	}
 
 	@JsonProperty("low")
-	public void setLow(int low) {
+	public void setLow(double low) {
 		this.low = low;
 	}
 
 	@JsonProperty("open")
-	public int getOpen() {
+	public double getOpen() {
 		return open;
 	}
 
 	@JsonProperty("open")
-	public void setOpen(int open) {
+	public void setOpen(double open) {
 		this.open = open;
 	}
 
 	@JsonProperty("volume")
-	public int getVolume() {
+	public double getVolume() {
 		return volume;
 	}
 
 	@JsonProperty("volume")
-	public void setVolume(int volume) {
+	public void setVolume(double volume) {
 		this.volume = volume;
 	}
 

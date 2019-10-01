@@ -1,6 +1,7 @@
 com\methods\Subquery.class
 com\models\PutExpDateMap.class
 com\models\PriceHistory.class
+com\util\AnalysisUtil.class
 com\models\OrderStatus.class
 com\models\OrderLegCollection.class
 com\models\PeriodType.class
@@ -16,6 +17,7 @@ com\models\Period.class
 com\models\ReplacingOrderCollection.class
 com\models\FrequencyType.class
 com\models\Index.class
+com\strategy\RSI2Strategy.class
 com\models\ChildOrderStrategy.class
 com\models\User.class
 com\http\ApiSession$1.class
@@ -24,11 +26,13 @@ com\models\ContractType.class
 com\tda\methods\Tda.class
 com\models\Account.class
 com\models\Location.class
+com\strategy\CCICorrectionStrategy.class
 com\models\SymbolFundamental.class
 com\models\InitialBalances.class
 com\models\Mover.class
 com\models\OptionType.class
 com\models\Order.class
+com\strategy\GlobalExtremaStrategy.class
 com\models\Token.class
 com\models\SecuritiesAccount.class
 com\methods\Endpoint.class
@@ -39,6 +43,7 @@ com\http\ApiSession$2.class
 com\http\ApiSession.class
 com\models\Error.class
 com\models\AccountList.class
+com\strategy\MovingMomentumStrategy.class
 com\models\Position.class
 com\models\Fundamental.class
 com\models\Option.class
