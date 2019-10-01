@@ -1,10 +1,11 @@
 # TdaAPI
-Java REST API wrapper for TDAmeritrade OAuth2.0 API v1
+Java REST API wrapper for TDAmeritrade OAuth2.0 API v1  
 
 ## Installing 
-`mvn clean install` Add TdaAPI-jar-with-dependencies to your classpath
+`mvn clean install`  
+Add TdaAPI-jar-with-dependencies to your classpath  
 
-## Examples
+## Initialize the Api
 Create a .properties file containing your TDA api creds  
 Expected:  
 * `tda.http.path=https\://api.tdameritrade.com/v1/`
@@ -15,7 +16,7 @@ Expected:
 Once you have populated the relevant fields, each construction of an `ApiSession` will  
 Refresh your Access and Refresh tokens and save them to the existing file.  
 
-## Usage
+## Examples
 `ApiSession tda = Tda.initializeTdaApi(path); //Load tda-api.properties from String path`  
 `SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950"); //Fetch account data`  
 `List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX); //get movers from SPXX`   
