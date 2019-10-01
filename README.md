@@ -1,10 +1,12 @@
 # TdaAPI
-Java REST API wrapper for TDAmeritrade OAuth2.0 API v1
+An easy to use Java REST API wrapper for TDAmeritrade OAuth2.0 API v1  
+Using OKHTTP 3 and Jackson for http calls/serialization  
 
 ## Installing 
-`mvn clean install` Add TdaAPI-jar-with-dependencies to your classpath
+`mvn clean install`  
+Add TdaAPI-jar-with-dependencies to your classpath  
 
-## Examples
+## Initialize the Api
 Create a .properties file containing your TDA api creds  
 Expected:  
 * `tda.http.path=https\://api.tdameritrade.com/v1/`
@@ -15,8 +17,13 @@ Expected:
 Once you have populated the relevant fields, each construction of an `ApiSession` will  
 Refresh your Access and Refresh tokens and save them to the existing file.  
 
-## Usage
-`ApiSession tda = Tda.initializeTdaApi(path); //Load tda-api.properties from String path`  
-`SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950"); //Fetch account data`  
-`List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX); //get movers from SPXX`   
-`SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T"); //Get fundamental data for symbol`   
+## Examples
+```java
+ApiSession tda = Tda.initializeTdaApi(path); //Load tda-api.properties from String path  
+SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950"); //Fetch account data  
+List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX); //get movers from SPXX   
+SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T"); //Get fundamental data for symbol  
+
+PriceHistory history = Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.TEN,FrequencyType.MINUTE,Period.FIVE,true);  
+RSI2Strategy.run(history);
+```
