@@ -18,10 +18,12 @@ Once you have populated the relevant fields, each construction of an `ApiSession
 Refresh your Access and Refresh tokens and save them to the existing file.  
 
 ## Examples
-`ApiSession tda = Tda.initializeTdaApi(path); //Load tda-api.properties from String path`  
-`SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950"); //Fetch account data`  
-`List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX); //get movers from SPXX`   
-`SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T"); //Get fundamental data for symbol`  
+```java
+ApiSession tda = Tda.initializeTdaApi(path); //Load tda-api.properties from String path  
+SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950"); //Fetch account data  
+List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX); //get movers from SPXX   
+SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T"); //Get fundamental data for symbol  
 
-`PriceHistory history = Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.TEN,FrequencyType.MINUTE,Period.FIVE,true);`  
-`RSI2Strategy.run(history);`
+PriceHistory history = Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.TEN,FrequencyType.MINUTE,Period.FIVE,true);  
+RSI2Strategy.run(history);
+```
