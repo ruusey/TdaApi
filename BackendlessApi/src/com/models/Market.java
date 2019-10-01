@@ -1,0 +1,5 @@
+package com.models;
+
+public enum Market {
+	EQUITY, OPTION, FUTURE, BOND, FOREX, ETF, FUTURE_OPTION, INDEX, INDIVATOR, MUTUAL_FUND, UNKNOWN
+}

@@ -13,6 +13,8 @@ import java.util.Properties;
 import java.util.function.Function;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,17 +26,21 @@ import com.methods.Endpoint;
 import com.models.Account;
 import com.models.AccountList;
 import com.models.CashAccount;
+import com.models.ContractType;
 import com.models.FrequencyType;
 import com.models.Index;
 import com.models.Location;
 import com.models.Login;
+import com.models.Market;
 import com.models.Mover;
+import com.models.Option;
 import com.models.Order;
 import com.models.Period;
 import com.models.PeriodType;
 import com.models.PriceHistory;
 import com.models.Quote;
 import com.models.SecuritiesAccount;
+import com.models.StrikeRange;
 import com.models.Symbol;
 import com.models.SymbolFundamental;
 import com.models.Token;
@@ -49,6 +55,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ApiSession {
+	static final Logger LOGGER = LogManager.getLogger(ApiSession.class);
 	public OkHttpClient client;
 	public String BASE_URL;
 	public Gson gson;
@@ -58,6 +65,7 @@ public class ApiSession {
 		client = new OkHttpClient();
 		this.BASE_URL = baseUrl;
 		gson = new GsonBuilder().setPrettyPrinting().create();
+		LOGGER.info("Created API session to "+this.BASE_URL);
 	}
 
 	public ApiSession(String baseUrl, String appId, String apiKey) {
@@ -221,18 +229,21 @@ public class ApiSession {
 			System.out.println(tda.bearerToken);
 			//Quote quote = Tda.getTdaSymbolQuote(tda, "ICE");
 			//tda.printJson(quote);
-			long start = System.currentTimeMillis();
-			//PriceHistory history = Tda.getTdaSymbolHistory(tda, "ICE",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.ONE,true);
+			
+			//PriceHistory history = 
 			//tda.printJson(history);
 			
 			//SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950");
 			//List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX);
 			//List<Order> accountOrders = Tda.getTdaOdersByAccount(tda, bearer, "496140950");
+			//tda.printJson(Tda.getMarketHours(tda, Market.INDEX));
+			//SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T");
+			//Option option = Tda.getOptionChain(tda, "T", ContractType.ALL, 2, StrikeRange.ITM);
 			
-			SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T");
-			//System.out.println("Fetched "+history.getCandles().size()+" records in "+(System.currentTimeMillis()-start)+"ms");
-			
-			tda.printJson(symbol);
+			tda.printJson(Tda.getTdaInstrumentFundamental(tda, "T"));
+			tda.printJson(Tda.getTdaInstrumentSearch(tda, "T"));
+			tda.printJson(Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.ONE,FrequencyType.MINUTE,Period.TEN,true));
+			tda.printJson(Tda.getOptionChain(tda, "T", ContractType.ALL, 1, StrikeRange.ITM));
 		
 	}
 }
