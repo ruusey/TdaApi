@@ -1,5 +1,6 @@
 # TdaAPI
-Java REST API wrapper for TDAmeritrade OAuth2.0 API v1  
+An easy to use Java REST API wrapper for TDAmeritrade OAuth2.0 API v1  
+Using OKHTTP 3 and Jackson for http calls/serialization  
 
 ## Installing 
 `mvn clean install`  
@@ -20,4 +21,7 @@ Refresh your Access and Refresh tokens and save them to the existing file.
 `ApiSession tda = Tda.initializeTdaApi(path); //Load tda-api.properties from String path`  
 `SecuritiesAccount account = Tda.getTdaCashAccount(tda,"496140950"); //Fetch account data`  
 `List<Mover> movers = Tda.getTdaMovers(tda, Index.SPXX); //get movers from SPXX`   
-`SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T"); //Get fundamental data for symbol`   
+`SymbolFundamental symbol = Tda.getTdaInstrumentFundamental(tda, "T"); //Get fundamental data for symbol`  
+
+`PriceHistory history = Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.TEN,FrequencyType.MINUTE,Period.FIVE,true);`  
+`RSI2Strategy.run(history);`
