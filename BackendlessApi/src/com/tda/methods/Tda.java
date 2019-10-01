@@ -58,6 +58,7 @@ public class Tda {
 			ApiSession tda = new ApiSession(baseUrl);
 			LOGGER.info("Fetching API access token");
 			Token token = Tda.postTdaApiTokens(tda, refreshToken, clientId);
+			tda.printJson(token);
 			prop.setProperty("tda.token.refresh", token.getRefreshToken());
 			prop.setProperty("tda.token.access", token.getAccessToken());
 			tda.saveProps(prop, propertiesPath);
