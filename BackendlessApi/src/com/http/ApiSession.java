@@ -253,11 +253,11 @@ public class ApiSession {
 			//tda.printJson(Tda.getTdaInstrumentFundamental(tda, "T"));
 			//tda.printJson(Tda.getTdaInstrumentSearch(tda, "T"));
 			
-			PriceHistory history = Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.TEN,FrequencyType.MINUTE,Period.FIVE,true);
+			PriceHistory history = Tda.getTdaSymbolHistory(tda, "T",PeriodType.DAY,Period.TEN,FrequencyType.MINUTE,Period.ONE,true);
 			//tda.printJson(history);
 			
 	        // Run trading strat
-	        RSI2Strategy.run(history);
+	        GlobalExtremaStrategy.run(history);
 
 	        // Running the strategy
 	       

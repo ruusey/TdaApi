@@ -65,6 +65,7 @@ public class MovingMomentumStrategy {
         // Running the strategy
         TimeSeriesManager seriesManager = new TimeSeriesManager(series);
         TradingRecord tradingRecord = seriesManager.run(strategy);
+        AnalysisUtil.printTradingRecord(tradingRecord);
         System.out.println("Number of trades for the strategy: " + tradingRecord.getTradeCount());
 
         // Analysis

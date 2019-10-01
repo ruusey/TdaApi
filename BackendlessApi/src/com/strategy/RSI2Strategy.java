@@ -67,7 +67,8 @@ public class RSI2Strategy {
         // Running the strategy
         TimeSeriesManager seriesManager = new TimeSeriesManager(series);
         TradingRecord tradingRecord = seriesManager.run(strategy);
-        System.out.println(gson.toJson(tradingRecord));
+        AnalysisUtil.printTradingRecord(tradingRecord);
+        //System.out.println(gson.toJson(tradingRecord));
         System.out.println("Number of trades for the strategy: " + tradingRecord.getTradeCount());
 
         // Analysis

@@ -10,7 +10,6 @@ com\models\CancelTime.class
 com\models\Candle.class
 com\models\Symbol.class
 com\models\CurrentBalances.class
-log4j2.xml
 com\models\Market.class
 com\models\Metadata.class
 com\models\Login.class
