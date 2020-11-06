@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Built-By: 439575
+Build-Jdk: 14.0.2
+Main-Class: com.http.ApiSession
+Created-By: Maven Integration for Eclipse
+
